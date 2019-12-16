@@ -39,6 +39,7 @@ public class BDConnection {
     }
 
     public ResultSet searchBy(String search) throws SQLException {
+        //cria o query de busca
         rs1 = stmt1.executeQuery("SELECT * FROM carta WHERE id LIKE \"%" + search + "%\""
                 + " OR nome LIKE \"%" + search + "%\""
                 + " OR tipo LIKE \"%" + search + "%\""
@@ -53,9 +54,11 @@ public class BDConnection {
     }
 
     public String getFormatedResult(String search) throws SQLException {
+        //faz a pesquisa
         rs1 = searchBy(search);
         String res = "";
 
+        //formata o resultado
         while (rs1 != null && rs1.next()) {
             res = res.concat("id: " + rs1.getInt("id"));
             res = res.concat("\nnome: " + rs1.getString("nome"));
@@ -68,7 +71,7 @@ public class BDConnection {
             res = res.concat("\nfraqueza: " + rs1.getString("fraqueza"));
             res = res.concat("\n\n");
         }
-
+        //retorna o resultado formatado
         return res;
     }
 

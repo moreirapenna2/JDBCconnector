@@ -5,10 +5,17 @@
  */
 package front;
 import bdconnection.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.paint.Color;
+import static javafx.scene.paint.Color.color;
+import static javafx.scene.paint.Color.color;
+import javax.swing.BorderFactory;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -38,6 +45,7 @@ public class main extends javax.swing.JFrame {
         SearchButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TextArea1 = new javax.swing.JTextArea();
+        Button1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +67,8 @@ public class main extends javax.swing.JFrame {
         TextArea1.setRows(5);
         jScrollPane2.setViewportView(TextArea1);
 
+        Button1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,13 +76,15 @@ public class main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(Button1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SearchButton)
-                        .addGap(0, 785, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(SearchButton)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,7 +94,9 @@ public class main extends javax.swing.JFrame {
                     .addComponent(TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SearchButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -101,6 +115,45 @@ public class main extends javax.swing.JFrame {
             TextArea1.setText(rs);
             //muda o fundo para branco
             TextField1.setBackground(java.awt.Color.white);
+            
+            //pega o set de resultados separados
+            ResultSet set = bd.searchBy(txt);
+            set.next();
+            //coloca o nome do botao como o nome da carta
+            Button1.setText(set.getString("nome"));
+            //separa por tipo de carta
+            switch(set.getString("tipo")){
+                //se for um pokemon
+                case "Pokemon":
+                    //muda a cor de acordo com o tipo de energia
+                    switch(set.getString("energia")){
+                        case "Fogo":
+                            Button1.setBorder(new LineBorder(java.awt.Color.red,2));
+                            Button1.setBackground(java.awt.Color.LIGHT_GRAY);
+                            break;
+                    }
+                    break;
+                case "Apoiador":
+                case "Item":
+                case "Estadio":
+                    Button1.setBackground(java.awt.Color.gray);
+                    break;
+                //se for uma carta de energia muda a cor de acordo com ela
+                case "Energia":
+                    switch(set.getString("energia")){
+                        case "Fogo":
+                            Button1.setBackground(java.awt.Color.red);
+                            break;
+                        case "Agua":
+                            Button1.setBackground(java.awt.Color.blue);
+                            break;
+                        case "Grama":
+                            Button1.setBackground(java.awt.Color.GREEN);
+                            break;
+                    }
+                    
+            }
+            
         } catch (SQLException ex) {
             System.out.println(ex);
             //se nao encontrou nada, mostra que nao encontrou
@@ -108,6 +161,7 @@ public class main extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_TextField1ActionPerformed
+
 
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
         //se o campo de pesquisa estiver vazio
@@ -165,6 +219,7 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Button1;
     private javax.swing.JButton SearchButton;
     private javax.swing.JTextArea TextArea1;
     private javax.swing.JTextField TextField1;
