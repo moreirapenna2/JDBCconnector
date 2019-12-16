@@ -22,7 +22,15 @@ import java.sql.SQLException;
  * Insert into carta(nome, tipo, colecao) values ("Energia de Fogo", "Energia", "2019/1");
  * Insert into carta(nome,tipo, colecao, descricao) values ("Mistura de Ervas", "Item", "184/214","Remova 1 condição especial do seu pokémon ativo");
  * Insert into carta(nome,tipo, colecao, descricao) values ("Santuário da Punição", "Estadio","143/168", "Entre as vezes de jogar, coloque 1 contador de dano em cada pokémon GX e EX");
- */
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia de Agua", "Energia", "2019/1.1", "Agua");
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia de Planta", "Energia", "2019/1.3", "Planta");
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia Eletrica", "Energia", "2019/1.5", "Eletrica");
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia Psiquica", "Energia", "2019/1.6", "Psiquica");
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia de Luta", "Energia", "2019/1.7", "Luta");
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia Noturna", "Energia", "2019/1.8", "Noturna");
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia de Metal", "Energia", "2019/1.9", "Metal");
+ * Insert into carta(nome, tipo, colecao, energia) values ("Energia de Fada", "Energia", "2019/1.2", "Fada");
+ **/
 public class BDConnection {
 
     Connection conn1;

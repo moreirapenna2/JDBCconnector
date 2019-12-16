@@ -125,21 +125,47 @@ public class main extends javax.swing.JFrame {
             switch(set.getString("tipo")){
                 //se for um pokemon
                 case "Pokemon":
+                    Button1.setBackground(java.awt.Color.LIGHT_GRAY);
                     //muda a cor de acordo com o tipo de energia
                     switch(set.getString("energia")){
                         case "Fogo":
                             Button1.setBorder(new LineBorder(java.awt.Color.red,2));
-                            Button1.setBackground(java.awt.Color.LIGHT_GRAY);
+                            break;
+                        case "Agua":
+                            Button1.setBorder(new LineBorder(java.awt.Color.blue,2));
+                            break;
+                        case "Planta":
+                            Button1.setBorder(new LineBorder(java.awt.Color.GREEN,2));
+                            break;
+                        case "Eletrica":
+                            Button1.setBorder(new LineBorder(java.awt.Color.yellow,2));
+                            break;
+                        case "Psiquica":
+                            Button1.setBorder(new LineBorder(new java.awt.Color(130, 0, 115),2));
+                            break;
+                        case "Luta":
+                            Button1.setBorder(new LineBorder(new java.awt.Color(201, 101, 0),2));
+                            break;
+                        case "Noturna":
+                            Button1.setBorder(new LineBorder(java.awt.Color.DARK_GRAY,2));
+                            break;
+                        case "Metal":
+                            Button1.setBorder(new LineBorder(java.awt.Color.GRAY,2));
+                            break;
+                        case "Fada":
+                            Button1.setBorder(new LineBorder(new java.awt.Color(255, 80, 210),2));
                             break;
                     }
                     break;
                 case "Apoiador":
                 case "Item":
                 case "Estadio":
-                    Button1.setBackground(java.awt.Color.gray);
+                    Button1.setBorder(new LineBorder(java.awt.Color.BLACK,1));
+                    Button1.setBackground(java.awt.Color.LIGHT_GRAY);
                     break;
                 //se for uma carta de energia muda a cor de acordo com ela
                 case "Energia":
+                    Button1.setBorder(new LineBorder(java.awt.Color.BLACK,1));
                     switch(set.getString("energia")){
                         case "Fogo":
                             Button1.setBackground(java.awt.Color.red);
@@ -147,11 +173,28 @@ public class main extends javax.swing.JFrame {
                         case "Agua":
                             Button1.setBackground(java.awt.Color.blue);
                             break;
-                        case "Grama":
+                        case "Planta":
                             Button1.setBackground(java.awt.Color.GREEN);
                             break;
+                        case "Eletrica":
+                            Button1.setBackground(java.awt.Color.yellow);
+                            break;
+                        case "Psiquica":
+                            Button1.setBackground(new java.awt.Color(130, 0, 115));
+                            break;
+                        case "Luta":
+                            Button1.setBackground(new java.awt.Color(201, 101, 0));
+                            break;
+                        case "Noturna":
+                            Button1.setBackground(java.awt.Color.DARK_GRAY);
+                            break;
+                        case "Metal":
+                            Button1.setBackground(java.awt.Color.GRAY);
+                            break;
+                        case "Fada":
+                            Button1.setBackground(new java.awt.Color(255, 80, 210));
+                            break;
                     }
-                    
             }
             
         } catch (SQLException ex) {
