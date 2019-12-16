@@ -83,7 +83,7 @@ public class BDConnection {
         return res;
     }
 
-    private static void displayResult(ResultSet rs1) throws SQLException {
+    private void displayResult(ResultSet rs1) throws SQLException {
         //para cada resultado em rs1
         while (rs1.next()) {
             //pegar o valor do tipo int da coluna id
@@ -99,6 +99,17 @@ public class BDConnection {
             System.out.println("recuo: " + rs1.getInt("recuo"));
             System.out.println("fraqueza: " + rs1.getString("fraqueza"));
             System.out.println("\n\n");
+        }
+    }
+    
+    public void addDeck(String name, String tipo) throws SQLException{
+        //se o tipo for deck
+        if(tipo.equals("deck")){
+            //adiciona o deck com o nome passado e limite de 60 cartas
+            stmt1.execute("insert into lista (nome, tipo, limite) values (\""+name+"\", \"deck\", 60)");
+        }else if(tipo.equals("pasta")){
+            //se for pasta adiciona sem limite
+            stmt1.execute("insert into lista (nome, tipo) values (\""+name+"\", \"pasta\")");
         }
     }
 
