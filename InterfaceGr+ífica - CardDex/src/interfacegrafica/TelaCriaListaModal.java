@@ -6,13 +6,15 @@
 package interfacegrafica;
 
 import javax.swing.JOptionPane;
-
+import bdconnection.BDConnection;
+import java.sql.SQLException;
 
 /**
  * @author 2018.1.08.026
  */
 public class TelaCriaListaModal extends javax.swing.JDialog {
 
+    BDConnection bd;
     public String nome;
     public String tipo;
 
@@ -21,8 +23,9 @@ public class TelaCriaListaModal extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public TelaCriaListaModal(java.awt.Frame parent, boolean modal) {
+    public TelaCriaListaModal(java.awt.Frame parent, boolean modal) throws ClassNotFoundException, SQLException {
         super(parent, modal);
+        this.bd = new BDConnection();
         initComponents();
     }
 
@@ -152,7 +155,13 @@ public class TelaCriaListaModal extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Selecione apenas um tipo para sua lista");
         } else {
             nome = nome_lista.getText();
-            tipo = (type_deck.isSelected()) ? "Deck" : "Pasta";
+            tipo = (type_deck.isSelected()) ? "deck" : "pasta";
+            try{
+                bd.addDeck(nome, tipo);
+            }catch(Exception e){
+                System.out.println(e);
+            }
+                
             this.dispose();
         }
 
@@ -199,14 +208,19 @@ public class TelaCriaListaModal extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaCriaListaModal dialog = new TelaCriaListaModal(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
+                try{
+                    TelaCriaListaModal dialog = new TelaCriaListaModal(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
-                });
+                    });
                 dialog.setVisible(true);
+                }catch(Exception e){
+                    System.out.println(e);
+                }
+               
             }
         });
     }

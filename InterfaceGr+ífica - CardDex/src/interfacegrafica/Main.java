@@ -1,7 +1,6 @@
 package interfacegrafica;
 
 //import lists
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import bdconnection.BDConnection;
+import java.sql.SQLException;
+
 /**
  *
  * @author Eldoardo
  */
 public class Main extends javax.swing.JFrame {
-
+    BDConnection bd;
     //Objeto localizador para abrir a tela de criação de listas    
     JFrame frame = (JFrame)SwingUtilities.getWindowAncestor(this);
     
@@ -33,9 +35,12 @@ public class Main extends javax.swing.JFrame {
     
     /**
      * Creates new form Main
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
-    public Main() {
+    public Main() throws ClassNotFoundException, SQLException {
         initComponents();
+        bd =  new BDConnection();
     }
 
     /**
@@ -174,30 +179,42 @@ public class Main extends javax.swing.JFrame {
 
     private void create_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_listActionPerformed
         //instancia o objeto da tela
-        TelaCriaListaModal tclm = new TelaCriaListaModal(frame, true);
-        //mostra a tela
-        tclm.setVisible(true);
-        
-        // teste para verificar se o form foi preenchido
-        if((tclm.tipo != null)&&(tclm.nome != null)){
-            JLabel n = new JLabel();
-            // caso tenha sido, verifica-se qual o tipo de lista q foi criado
-            if("Deck".equals(tclm.tipo))    
-                nova_lista.setIcon(pasta);  //caso seja deck : preenche a label com o icon de deck
-            else
-                nova_lista.setIcon(pasta);  //se nao: preenche a label com o icon de pasta
-            
-            nova_lista_nome.setText(tclm.tipo+": "+tclm.nome); // e por fim damos o nome à nova lista 
+        TelaCriaListaModal tclm;
+        try {
+            tclm = new TelaCriaListaModal(frame, true);
+            //mostra a tela
+            tclm.setVisible(true);
+
+            // teste para verificar se o form foi preenchido
+            if((tclm.tipo != null)&&(tclm.nome != null)){
+                JLabel n = new JLabel();
+                // caso tenha sido, verifica-se qual o tipo de lista q foi criado
+                if("deck".equals(tclm.tipo))    
+                    nova_lista.setIcon(pasta);  //caso seja deck : preenche a label com o icon de deck
+                else
+                    nova_lista.setIcon(pasta);  //se nao: preenche a label com o icon de pasta
+
+                nova_lista_nome.setText(tclm.tipo+": "+tclm.nome); // e por fim damos o nome à nova lista 
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        
 
 
     }//GEN-LAST:event_create_listActionPerformed
 
     private void nova_listaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nova_listaMouseClicked
         //instancia o objeto da tela
-        TelaCriaListaModal tclm = new TelaCriaListaModal(frame, true);
-        //mostra a tela
-        tclm.setVisible(true);
+        TelaCriaListaModal tclm;
+        try {
+            tclm = new TelaCriaListaModal(frame, true);
+            //mostra a tela
+            tclm.setVisible(true);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+       
     }//GEN-LAST:event_nova_listaMouseClicked
 
     
@@ -232,7 +249,11 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                try {
+                    new Main().setVisible(true);
+                } catch(Exception e){
+                    System.out.println(e);
+                }
             }
         });
     }
